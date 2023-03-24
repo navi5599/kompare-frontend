@@ -4,6 +4,7 @@ export const getCustomers = () => {
 
   let url: string = 'http://localhost:8080/customers';
 
+
   return axios.get(url)
     .then((res) => {
       console.log('fetch', res.data)
@@ -13,3 +14,6 @@ export const getCustomers = () => {
       console.log(err)
     })
 }
+
+
+

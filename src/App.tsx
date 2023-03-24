@@ -1,54 +1,23 @@
-import { useEffect } from 'react'
-import { observer } from 'mobx-react-lite'
 import './App.css'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  Text,
-} from '@chakra-ui/react';
+import MainPage from './pages/MainPage/MainPage';
+import CustomerPage from './pages/CustomerPage/CustomerPage';
 
-import globalStore from './common/stores/globalStore'
+
 
 function App() {
-
-  useEffect(() => {
-    globalStore.getAllCustomers();
-  }, [])
 
 
 
   return (
-    <div className="App">
-      <Table variant="striped" colorScheme="teal">
-        <Thead>
-          <Tr>
-            <Th>Customer Name</Th>
-            <Th>Email</Th>
-            <Th>City</Th>
-            <Th>Details</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {globalStore.customers.map((customer) => (
-            <Tr key={customer._id}>
-              <Td>
-                <Text fontWeight="bold">
-                  {customer.Name} {customer.Surname}
-                </Text>
-              </Td>
-              <Td>{customer.Email}</Td>
-              <Td>{customer.City}</Td>
-              <Td>Button</Td>
-            </Tr>
-          ))}
-        </Tbody>
-      </Table>
-    </div>
+    <BrowserRouter>
+      {/* <Header /> */}
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/customers/:id" element={<CustomerPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 
   // return (
@@ -69,4 +38,4 @@ function App() {
   // )
 }
 
-export default observer(App)
+export default App;

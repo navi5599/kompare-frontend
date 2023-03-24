@@ -22,12 +22,15 @@ interface Customer {
 class GlobalStore {
 
   customers: Customer[] = [];
+  showModal = false;
 
 
   constructor() {
     makeObservable(this, {
       customers: observable,
+      showModal: observable,
       getAllCustomers: flow,
+      handleModal: action,
     });
   }
 
@@ -35,6 +38,14 @@ class GlobalStore {
     const customers = yield getCustomers();
     this.customers = customers;
   }
+
+  handleModal = () => {
+    runInAction(() => {
+      this.showModal = !this.showModal;
+    })
+  }
+
+
 
 }
 
