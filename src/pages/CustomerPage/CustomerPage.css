@@ -1,4 +1,18 @@
 .customer-page {
   margin: 0;
+  width: 50%;
   min-height: 100vh;
+}
+
+.card {
+  max-width: 45rem;
+  max-height: 25rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 2rem;
+}
+
+.back_btn:hover {
+  color: black;
 }
