@@ -9,7 +9,7 @@ import './Header.css'
 
 import globalStore from '../../common/stores/globalStore'
 
-import AddNewCustomer from '../../pages/AddNewCustomer/AddNewCustomer'
+import HandleCustomer from '../../pages/HandleCustomer/HandleCustomer'
 
 function Header() {
 
@@ -22,8 +22,7 @@ function Header() {
       <Button onClick={globalStore.handleModal} colorScheme='teal' size='md'>
         Add new Customer
       </Button>
-      <AddNewCustomer />
-
+      <HandleCustomer />
 
     </div>
   )

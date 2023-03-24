@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
+import { runInAction } from 'mobx';
+import { resetStates } from '../../common/services/resetStates';
 import './MainPage.css'
 
 import {
@@ -24,7 +26,10 @@ function MainPage() {
 
   useEffect(() => {
     globalStore.getAllCustomers();
-    customerStore.insurance = '';
+    runInAction(() => {
+      resetStates()
+    })
+
   }, [])
 
   return (
