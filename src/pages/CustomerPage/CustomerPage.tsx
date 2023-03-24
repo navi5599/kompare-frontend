@@ -1,18 +1,20 @@
 import React, { useEffect } from 'react'
 import './CustomerPage.css'
-import { Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Text, Button } from '@chakra-ui/react'
+import { Card, CardBody, CardFooter, Image, Stack, Heading, Text, Button } from '@chakra-ui/react'
 import { Link } from 'react-router-dom';
 
 
 import globalStore from '../../common/stores/globalStore';
 import customerStore from '../../common/stores/customerStore';
-import { deleteCustomer } from '../../common/services/fatchData';
 import { useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
+import HandleCustomer from '../HandleCustomer/HandleCustomer';
+import ConfirmationModal from '../../components/ConfirmationModal/ConfirmationModal';
 
 function CustomerPage() {
 
   const { id } = useParams();
+
 
   useEffect(() => {
     globalStore.getAllCustomers()
@@ -52,6 +54,9 @@ function CustomerPage() {
         <Button variant='outline' colorScheme='gray' my='5' size='sm' className='back_btn'>Go back</Button>
       </Link>
 
+      <HandleCustomer />
+      <ConfirmationModal customer={customer} />
+
       <Card
         direction={{ base: 'column', sm: 'row' }}
         overflow='hidden'
@@ -79,17 +84,18 @@ function CustomerPage() {
               Birthday: {formattedDate}
             </Text>
             <Text py='1'>
-              Insurance: {customerStore.insurance}
+              Insurance:{' '}
               {
                 !customerStore.insurance ?
                   <Button
                     variant='outline'
                     colorScheme='gray'
+                    mx='2'
                     size='sm'
                     onClick={() => customerStore.getInsurance(customer._id)}>
                     Calculate
                   </Button>
-                  : ''
+                  : `${customerStore.insurance}  EUR/Month`
               }
 
             </Text>
@@ -97,10 +103,18 @@ function CustomerPage() {
           </CardBody>
 
           <CardFooter>
-            <Button variant='outline' colorScheme='teal' mx='1' size='sm'>
+            <Button
+              variant='outline'
+              colorScheme='teal'
+              mx='1' size='sm'
+              onClick={() => customerStore.handleEditModal(customer)}>
               Edit
             </Button>
-            <Button variant='solid' colorScheme='red' size='sm' onClick={() => deleteCustomer(customer._id)}>
+            <Button
+              variant='solid'
+              colorScheme='red'
+              size='sm'
+              onClick={() => customerStore.handleConfirmationModal()}>
               Delete
             </Button>
           </CardFooter>

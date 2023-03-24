@@ -8,7 +8,7 @@ import {
 } from 'mobx';
 
 import { calculateInsurance } from '../services/fatchData';
-
+import globalStore from './globalStore';
 
 
 
@@ -21,6 +21,7 @@ class CustomerStore {
   birthday = '';
 
   insurance = '';
+  showConfirmationModal = false
 
   constructor() {
     makeObservable(this, {
@@ -30,14 +31,38 @@ class CustomerStore {
       city: observable,
       birthday: observable,
       insurance: observable,
+      showConfirmationModal: observable,
       getInsurance: flow,
+      handleConfirmationModal: action,
+      handleEditModal: action
     });
   }
 
   *getInsurance(id: string): any {
-    console.log('store insurance called')
     const result = yield calculateInsurance(id)
     this.insurance = result
+  }
+
+  handleEditModal(customer: any) {
+    const setValues = () => {
+      this.email = customer.Email
+      this.firstName = customer.Name
+      this.lastName = customer.Surname
+      this.city = customer.City
+      this.birthday = customer.Birthday
+    }
+    runInAction(() => {
+      setValues()
+      globalStore.showModal = !globalStore.showModal
+    })
+  }
+
+
+
+  handleConfirmationModal() {
+    runInAction(() => {
+      this.showConfirmationModal = !this.showConfirmationModal
+    })
   }
 
 }

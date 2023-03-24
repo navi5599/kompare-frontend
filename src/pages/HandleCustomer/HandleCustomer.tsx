@@ -1,5 +1,5 @@
 import React from 'react'
-import './AddNewCustomer.css'
+import './HandleCustomer.css'
 
 import {
   Modal,
@@ -18,15 +18,24 @@ import {
 import globalStore from '../../common/stores/globalStore'
 import customerStore from '../../common/stores/customerStore'
 import { addCustomer } from '../../common/services/fatchData'
-import { observer } from 'mobx-react-lite';
+import { updateCustomer } from '../../common/services/fatchData'
+import { observer } from 'mobx-react-lite'
+import { useParams } from 'react-router-dom'
 
 
 
-function AddNewCustomer() {
+function HandleCustomer() {
+
+  const { id } = useParams();
+
 
   const handleSUbmit = (e: any) => {
     e.preventDefault();
-    addCustomer();
+    if (id) {
+      updateCustomer(id);
+    } else {
+      addCustomer();
+    }
   }
 
   return (
@@ -37,7 +46,11 @@ function AddNewCustomer() {
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add new customer</ModalHeader>
+        <ModalHeader>
+          {
+            id ? 'Edit customer' : 'Add new customer'
+          }
+        </ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <form id='create-form' onSubmit={handleSUbmit}>
@@ -47,7 +60,7 @@ function AddNewCustomer() {
               <Input
                 type='email'
                 name='email'
-                placeholder='Email'
+                placeholder={customerStore.email || 'Email'}
                 size='sm'
                 onChange={(e) => customerStore.email = e.target.value} />
             </FormControl>
@@ -57,7 +70,7 @@ function AddNewCustomer() {
               <Input
                 type='text'
                 name='first_name'
-                placeholder='First name'
+                placeholder={customerStore.firstName || 'First name'}
                 size='sm'
                 onChange={(e) => customerStore.firstName = e.target.value} />
             </FormControl>
@@ -67,7 +80,7 @@ function AddNewCustomer() {
               <Input
                 type='text'
                 name='last_name'
-                placeholder='Last name'
+                placeholder={customerStore.lastName || 'Last name'}
                 size='sm'
                 onChange={(e) => customerStore.lastName = e.target.value} />
             </FormControl>
@@ -77,7 +90,7 @@ function AddNewCustomer() {
               <Input
                 type='text'
                 name='city'
-                placeholder='City'
+                placeholder={customerStore.city || 'City'}
                 size='sm'
                 onChange={(e) => customerStore.city = e.target.value} />
             </FormControl>
@@ -87,7 +100,6 @@ function AddNewCustomer() {
               <Input
                 type='date'
                 name='birthday'
-                placeholder='Birthday'
                 size='sm'
                 onChange={(e) => customerStore.birthday = e.target.value} />
             </FormControl>
@@ -97,9 +109,17 @@ function AddNewCustomer() {
         </ModalBody>
 
         <ModalFooter>
-          <Button type='submit' form='create-form' colorScheme='teal' mr={3} size='sm'>
-            Add new
-          </Button>
+          {
+            id ?
+              <Button type='submit' form='create-form' colorScheme='teal' mr={3} size='sm'>
+                Save
+              </Button>
+              :
+              <Button type='submit' form='create-form' colorScheme='teal' mr={3} size='sm'>
+                Add new
+              </Button>
+          }
+
           <Button onClick={globalStore.handleModal} colorScheme='red' size='sm'>Cancel</Button>
         </ModalFooter>
       </ModalContent>
@@ -110,4 +130,4 @@ function AddNewCustomer() {
   )
 }
 
-export default observer(AddNewCustomer);
+export default observer(HandleCustomer);
