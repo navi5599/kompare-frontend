@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react';
 
 import globalStore from '../../common/stores/globalStore';
+import customerStore from '../../common/stores/customerStore';
 import Header from '../../components/Header/Header';
 import { Link } from 'react-router-dom';
 
@@ -23,6 +24,7 @@ function MainPage() {
 
   useEffect(() => {
     globalStore.getAllCustomers();
+    customerStore.insurance = '';
   }, [])
 
   return (
