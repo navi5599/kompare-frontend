@@ -6,5 +6,6 @@ export const resetStates = () => {
   customerStore.lastName = ''
   customerStore.city = ''
   customerStore.birthday = ''
-  customerStore.insurance = '';
+  customerStore.insurance = ''
+  customerStore.errorMessage = ''
 }

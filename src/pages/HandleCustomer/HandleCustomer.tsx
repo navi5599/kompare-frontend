@@ -1,6 +1,9 @@
 import React from 'react'
 import './HandleCustomer.css'
 
+import { action } from "mobx";
+
+
 import {
   Modal,
   ModalOverlay,
@@ -38,18 +41,6 @@ function HandleCustomer() {
     }
   }
 
-  // //convert date to another format
-  // const defaultDate = new Date(customerStore.birthday.substr(0, 10)).toISOString().substr(0, 10);
-
-  // //Convert date back onChage to needed format 
-  // const handleDateChange = (e: any) => {
-  //   const selectedDate = e.target.value; // get the selected date from the input field
-  //   const updatedBirthday = new Date(selectedDate + "T00:00:00.000Z").toISOString(); // convert the selected date to ISO format
-  //   customerStore.birthday = updatedBirthday; // update the MobX store with the updated birthday value
-  // };
-
-
-
 
   return (
 
@@ -75,27 +66,27 @@ function HandleCustomer() {
                 name='email'
                 placeholder={customerStore.email || 'Email'}
                 size='sm'
-                onChange={(e) => customerStore.email = e.target.value} />
+                onChange={action((e) => customerStore.email = e.target.value)} />
             </FormControl>
 
             <FormControl>
-              <FormLabel>First name</FormLabel>
+              <FormLabel>Name</FormLabel>
               <Input
                 type='text'
                 name='first_name'
                 placeholder={customerStore.firstName || 'First name'}
                 size='sm'
-                onChange={(e) => customerStore.firstName = e.target.value} />
+                onChange={action((e) => customerStore.firstName = e.target.value)} />
             </FormControl>
 
             <FormControl mt={4}>
-              <FormLabel>Last name</FormLabel>
+              <FormLabel>Surname</FormLabel>
               <Input
                 type='text'
                 name='last_name'
                 placeholder={customerStore.lastName || 'Last name'}
                 size='sm'
-                onChange={(e) => customerStore.lastName = e.target.value} />
+                onChange={action((e) => customerStore.lastName = e.target.value)} />
             </FormControl>
 
             <FormControl mt={4}>
@@ -105,7 +96,7 @@ function HandleCustomer() {
                 name='city'
                 placeholder={customerStore.city || 'City'}
                 size='sm'
-                onChange={(e) => customerStore.city = e.target.value} />
+                onChange={action((e) => customerStore.city = e.target.value)} />
             </FormControl>
 
             <FormControl mt={4}>
@@ -114,7 +105,7 @@ function HandleCustomer() {
                 type='date'
                 name='birthday'
                 size='sm'
-                onChange={(e) => customerStore.birthday = e.target.value} />
+                onChange={action((e) => customerStore.birthday = e.target.value)} />
             </FormControl>
 
           </form>
@@ -122,6 +113,9 @@ function HandleCustomer() {
         </ModalBody>
 
         <ModalFooter>
+          <p className='error-msg'>
+            {customerStore.errorMessage}
+          </p>
           {
             id ?
               <Button type='submit' form='create-form' colorScheme='teal' mr={3} size='sm'>

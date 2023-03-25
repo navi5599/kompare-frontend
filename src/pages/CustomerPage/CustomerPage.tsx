@@ -95,7 +95,7 @@ function CustomerPage() {
                     onClick={() => customerStore.getInsurance(customer._id)}>
                     Calculate
                   </Button>
-                  : `${customerStore.insurance}  EUR/Month`
+                  : `${customerStore.insurance}  EUR/Year`
               }
 
             </Text>

@@ -23,6 +23,8 @@ class CustomerStore {
   insurance = '';
   showConfirmationModal = false
 
+  errorMessage = '';
+
   constructor() {
     makeObservable(this, {
       email: observable,
@@ -32,6 +34,7 @@ class CustomerStore {
       birthday: observable,
       insurance: observable,
       showConfirmationModal: observable,
+      errorMessage: observable,
       getInsurance: flow,
       handleConfirmationModal: action,
       handleEditModal: action

@@ -8,6 +8,7 @@ import {
 } from 'mobx';
 
 import { getCustomers } from '../services/fatchData';
+import { resetStates } from '../services/resetStates';
 
 
 interface Customer {
@@ -42,6 +43,7 @@ class GlobalStore {
   handleModal = () => {
     runInAction(() => {
       this.showModal = !this.showModal;
+      resetStates();
     })
   }
 

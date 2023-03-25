@@ -3,7 +3,10 @@ import customerStore from '../stores/customerStore';
 import { notifySuccess } from './toast';
 import { notifyError } from './toast';
 import { resetStates } from './resetStates';
-import globalStore from '../stores/globalStore';
+import { customerSchema } from './customerValidation';
+
+import * as Yup from 'yup';
+import { runInAction } from 'mobx';
 
 //Data to use in both create and update requests 
 
@@ -49,6 +52,8 @@ export const addCustomer = async () => {
 
   try {
 
+    await customerSchema.validate(bodyData, { abortEarly: false });
+
     const response = await axios.post(url, bodyData, headers)
     if (response.status === 201) {
       console.log('New customer added', response);
@@ -62,8 +67,14 @@ export const addCustomer = async () => {
       console.log('Error:', response.status);
     }
   }
-  catch (err) {
-    console.log(err)
+  catch (error) {
+    if (error instanceof Yup.ValidationError) {
+
+      customerStore.errorMessage = error.inner[0].message;
+      console.log(customerStore.errorMessage);
+    } else {
+      console.log(error);
+    }
   }
 }
 
