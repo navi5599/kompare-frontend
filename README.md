@@ -11,9 +11,9 @@ npm
 
 You should also clone backend project and start the server, in order to make http requests successfully. Here is link to backend project:
 
-```bash
+
 [Backend project](https://github.com/navi5599/kompare-backend)
-```
+
 
 ## Installation
 
