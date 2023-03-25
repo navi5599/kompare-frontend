@@ -38,6 +38,19 @@ function HandleCustomer() {
     }
   }
 
+  // //convert date to another format
+  // const defaultDate = new Date(customerStore.birthday.substr(0, 10)).toISOString().substr(0, 10);
+
+  // //Convert date back onChage to needed format 
+  // const handleDateChange = (e: any) => {
+  //   const selectedDate = e.target.value; // get the selected date from the input field
+  //   const updatedBirthday = new Date(selectedDate + "T00:00:00.000Z").toISOString(); // convert the selected date to ISO format
+  //   customerStore.birthday = updatedBirthday; // update the MobX store with the updated birthday value
+  // };
+
+
+
+
   return (
 
     <Modal

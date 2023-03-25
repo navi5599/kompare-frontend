@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 export const notifySuccess = (msg: string) =>
   toast.success(`${msg}`, {
     position: 'top-center',
-    autoClose: 5000,
+    autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
