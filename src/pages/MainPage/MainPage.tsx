@@ -16,7 +16,6 @@ import {
 } from '@chakra-ui/react';
 
 import globalStore from '../../common/stores/globalStore';
-import customerStore from '../../common/stores/customerStore';
 import Header from '../../components/Header/Header';
 import { Link } from 'react-router-dom';
 
@@ -39,7 +38,7 @@ function MainPage() {
 
       <div className='main-page'>
 
-        <Table variant="striped" colorScheme="teal">
+        <Table variant="striped" colorScheme='gray' size='sm'>
           <Thead>
             <Tr>
               <Th>Customer Name</Th>
@@ -50,7 +49,7 @@ function MainPage() {
           </Thead>
           <Tbody>
             {globalStore.customers.map((customer) => (
-              <Tr key={customer._id}>
+              <Tr key={customer._id} >
                 <Td>
                   <Text fontWeight="bold">
                     {customer.Name} {customer.Surname}
@@ -60,7 +59,7 @@ function MainPage() {
                 <Td>{customer.City}</Td>
                 <Td>
                   <Link to={`/customers/${customer._id}`}>
-                    <Button colorScheme='teal' size='md'>
+                    <Button colorScheme='teal' size='sm' variant='outline'>
                       View
                     </Button>
                   </Link>
